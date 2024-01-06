@@ -6,19 +6,37 @@ import Numbers from "./Numbers";
 import Controls from "./Controls";
 import MainTask from "./MainTask";
 
+const localStorageStore = getLocalStorage(Object.values(LOCAL_STORAGE_KEYS));
+
 function TimerContainer(props) {
   const { updateBackground, isTestingBackground } = props;
 
-  const [mainTask, setMainTask] = useState(defaultTask);
-  const [originalTime, setOriginalTime] = useState(defaultTime);
-  const [time, setTime] = useState(originalTime);
-  const [isRunning, setIsRunning] = useState(false);
+  const [mainTask, setMainTask] = useState(
+    localStorageStore[LOCAL_STORAGE_KEYS.MAIN_TASK] || defaultTask
+  );
+  const [originalTime, setOriginalTime] = useState(
+    localStorageStore[LOCAL_STORAGE_KEYS.ORIGINAL_TIME] || defaultTime
+  );
+  const [time, setTime] = useState(
+    localStorageStore[LOCAL_STORAGE_KEYS.TIME] || originalTime
+  );
+  const [isRunning, setIsRunning] = useState(
+    localStorageStore[LOCAL_STORAGE_KEYS.RUNNING] === "true"
+  );
   const [intervalId, setIntervalId] = useState();
   const intervalIdRef = useRef();
 
   useEffect(() => {
     intervalIdRef.current = intervalId;
   }, [intervalId]);
+
+  useEffect(() => {
+    setLocalStorage(LOCAL_STORAGE_KEYS.TIME, time);
+  }, [time]);
+
+  useEffect(() => {
+    setLocalStorage(LOCAL_STORAGE_KEYS.RUNNING, isRunning);
+  }, [isRunning]);
 
   const onResetClick = useCallback(() => {
     setTime(originalTime);
@@ -34,23 +52,6 @@ function TimerContainer(props) {
     setMainTask(newTask);
     setLocalStorage(LOCAL_STORAGE_KEYS.MAIN_TASK, newTask);
   };
-
-  useEffect(() => {
-    const localStorageStore = getLocalStorage(
-      Object.values(LOCAL_STORAGE_KEYS)
-    );
-
-    const localTime = localStorageStore[LOCAL_STORAGE_KEYS.ORIGINAL_TIME];
-    if (localTime) {
-      setTime(localTime);
-      setOriginalTime(localTime);
-    }
-
-    const localTask = localStorageStore[LOCAL_STORAGE_KEYS.MAIN_TASK];
-    if (localTask) {
-      setMainTask(localTask);
-    }
-  }, []);
 
   useEffect(() => {
     if (isRunning) {

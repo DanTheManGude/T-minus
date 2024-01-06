@@ -11,13 +11,29 @@ function App() {
   const isTestingBackground = !!testBackgroundUrl;
 
   useEffect(() => {
-    setBackgroundUrl(
-      isTestingBackground ? testBackgroundUrl : chooseRandomBackgroundUrl()
-    );
+    const pathBackgroundUrlRaw = window.location.pathname.slice(1);
+
+    let initialBackgroundUrl;
+
+    if (isTestingBackground) {
+      initialBackgroundUrl = testBackgroundUrl;
+    } else if (pathBackgroundUrlRaw) {
+      initialBackgroundUrl = decodeURIComponent(pathBackgroundUrlRaw);
+    } else {
+      initialBackgroundUrl = chooseRandomBackgroundUrl();
+    }
+
+    setBackgroundUrl(initialBackgroundUrl);
   }, [isTestingBackground]);
 
   useEffect(() => {
-    console.log(backgroundUrl);
+    if (backgroundUrl) {
+      const backgroundUrlPath = encodeURIComponent(backgroundUrl);
+
+      if (window.location.pathname.slice(1) !== backgroundUrlPath) {
+        window.location.assign(backgroundUrlPath);
+      }
+    }
   }, [backgroundUrl]);
 
   return (

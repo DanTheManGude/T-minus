@@ -15,6 +15,8 @@ export const testBackgroundUrl = null;
 export const LOCAL_STORAGE_KEYS = {
   MAIN_TASK: "MAIN_TASK",
   ORIGINAL_TIME: "ORIGINAL_TIME",
+  TIME: "TIME",
+  RUNNING: "RUNNING",
 };
 
 export const defaultTask = "Main Task";
