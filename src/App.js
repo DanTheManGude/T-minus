@@ -11,13 +11,28 @@ function App() {
   const isTestingBackground = !!testBackgroundUrl;
 
   useEffect(() => {
+    const searchParams = new URLSearchParams(window.location.search);
+    const initialBackgroundUrlRaw = searchParams.get("backgroundUrl");
+    if (initialBackgroundUrlRaw) {
+      const decodedUrl = decodeURIComponent(initialBackgroundUrlRaw);
+      setBackgroundUrl(decodedUrl);
+      console.log("decodedUrl", decodedUrl);
+    }
+  }, []);
+
+  useEffect(() => {
     setBackgroundUrl(
       isTestingBackground ? testBackgroundUrl : chooseRandomBackgroundUrl()
     );
   }, [isTestingBackground]);
 
   useEffect(() => {
-    console.log(backgroundUrl);
+    console.log("backgroundUrl", backgroundUrl);
+
+    if (backgroundUrl) {
+      const backgroundUrlSearchParam = encodeURIComponent(backgroundUrl);
+      console.log(backgroundUrlSearchParam);
+    }
   }, [backgroundUrl]);
 
   return (
