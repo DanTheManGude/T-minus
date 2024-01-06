@@ -11,15 +11,14 @@ function App() {
   const isTestingBackground = !!testBackgroundUrl;
 
   useEffect(() => {
-    const searchParams = new URLSearchParams(window.location.search);
-    const searchBackgroundUrlRaw = searchParams.get("backgroundUrl");
+    const pathBackgroundUrlRaw = window.location.pathname.slice(1);
 
     let initialBackgroundUrl;
 
     if (isTestingBackground) {
       initialBackgroundUrl = testBackgroundUrl;
-    } else if (searchBackgroundUrlRaw) {
-      initialBackgroundUrl = decodeURIComponent(searchBackgroundUrlRaw);
+    } else if (pathBackgroundUrlRaw) {
+      initialBackgroundUrl = decodeURIComponent(pathBackgroundUrlRaw);
     } else {
       initialBackgroundUrl = chooseRandomBackgroundUrl();
     }
@@ -31,8 +30,12 @@ function App() {
     console.log("backgroundUrl", backgroundUrl);
 
     if (backgroundUrl) {
-      const backgroundUrlSearchParam = encodeURIComponent(backgroundUrl);
-      console.log(backgroundUrlSearchParam);
+      const backgroundUrlPath = encodeURIComponent(backgroundUrl);
+      console.log(backgroundUrlPath);
+
+      if (window.location.pathname.slice(1) !== backgroundUrlPath) {
+        window.location.assign(backgroundUrlPath);
+      }
     }
   }, [backgroundUrl]);
 
