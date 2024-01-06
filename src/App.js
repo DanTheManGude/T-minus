@@ -24,14 +24,11 @@ function App() {
     }
 
     setBackgroundUrl(initialBackgroundUrl);
-  }, []);
+  }, [isTestingBackground]);
 
   useEffect(() => {
-    console.log("backgroundUrl", backgroundUrl);
-
     if (backgroundUrl) {
       const backgroundUrlPath = encodeURIComponent(backgroundUrl);
-      console.log(backgroundUrlPath);
 
       if (window.location.pathname.slice(1) !== backgroundUrlPath) {
         window.location.assign(backgroundUrlPath);
