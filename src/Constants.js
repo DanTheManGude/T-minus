@@ -10,8 +10,6 @@ export const backgroundUrls = [
   "https://chandra.harvard.edu/photo/2011/cdfs/cdfs_lg.jpg",
 ];
 
-export const testBackgroundUrl = null;
-
 export const LOCAL_STORAGE_KEYS = {
   MAIN_TASK: "MAIN_TASK",
   ORIGINAL_TIME: "ORIGINAL_TIME",
