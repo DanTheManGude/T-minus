@@ -12,19 +12,20 @@ function App() {
 
   useEffect(() => {
     const searchParams = new URLSearchParams(window.location.search);
-    const initialBackgroundUrlRaw = searchParams.get("backgroundUrl");
-    if (initialBackgroundUrlRaw) {
-      const decodedUrl = decodeURIComponent(initialBackgroundUrlRaw);
-      setBackgroundUrl(decodedUrl);
-      console.log("decodedUrl", decodedUrl);
-    }
-  }, []);
+    const searchBackgroundUrlRaw = searchParams.get("backgroundUrl");
 
-  useEffect(() => {
-    setBackgroundUrl(
-      isTestingBackground ? testBackgroundUrl : chooseRandomBackgroundUrl()
-    );
-  }, [isTestingBackground]);
+    let initialBackgroundUrl;
+
+    if (isTestingBackground) {
+      initialBackgroundUrl = testBackgroundUrl;
+    } else if (searchBackgroundUrlRaw) {
+      initialBackgroundUrl = decodeURIComponent(searchBackgroundUrlRaw);
+    } else {
+      initialBackgroundUrl = chooseRandomBackgroundUrl();
+    }
+
+    setBackgroundUrl(initialBackgroundUrl);
+  }, []);
 
   useEffect(() => {
     console.log("backgroundUrl", backgroundUrl);
