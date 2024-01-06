@@ -7,7 +7,7 @@ import Controls from "./Controls";
 import MainTask from "./MainTask";
 
 function TimerContainer(props) {
-  const { updateBackground } = props;
+  const { updateBackground, isTestingBackground } = props;
 
   const [mainTask, setMainTask] = useState(defaultTask);
   const [originalTime, setOriginalTime] = useState(defaultTime);
@@ -79,7 +79,11 @@ function TimerContainer(props) {
         isRunning={isRunning}
         setIsRunning={setIsRunning}
       />
-      <button className="new-background-button" onClick={updateBackground}>
+      <button
+        className="new-background-button"
+        onClick={updateBackground}
+        disabled={isTestingBackground}
+      >
         New background
       </button>
     </div>

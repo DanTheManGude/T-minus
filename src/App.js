@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 
-import { backgroundUrls } from "./Constants";
+import { backgroundUrls, testBackgroundUrl } from "./Constants";
 import TimerContainer from "./Components/TimerContainer";
 
 const chooseRandomBackgroundUrl = () =>
@@ -8,6 +8,7 @@ const chooseRandomBackgroundUrl = () =>
 
 function App() {
   const [backgroundUrl, setBackgroundUrl] = useState();
+  const isTestingBackground = !!testBackgroundUrl;
 
   useEffect(() => {
     const searchParams = new URLSearchParams(window.location.search);
@@ -18,6 +19,12 @@ function App() {
       console.log("decodedUrl", decodedUrl);
     }
   }, []);
+
+  useEffect(() => {
+    setBackgroundUrl(
+      isTestingBackground ? testBackgroundUrl : chooseRandomBackgroundUrl()
+    );
+  }, [isTestingBackground]);
 
   useEffect(() => {
     console.log("backgroundUrl", backgroundUrl);
@@ -37,12 +44,16 @@ function App() {
     >
       <TimerContainer
         updateBackground={() => {
+          if (isTestingBackground) {
+            return;
+          }
           let newBackground = backgroundUrl;
           while (newBackground === backgroundUrl) {
             newBackground = chooseRandomBackgroundUrl();
           }
           setBackgroundUrl(newBackground);
         }}
+        isTestingBackground={isTestingBackground}
       />
     </div>
   );
