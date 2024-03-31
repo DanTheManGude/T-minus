@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 
 const textAreaId = "mainTaskInput";
 
@@ -10,12 +10,14 @@ function resizeTextArea(element) {
 function MainTask(props) {
   const { mainTask, enterMainTask } = props;
 
+  const textAreaRef = useRef(null);
+
   useEffect(() => {
-    const element = document.getElementById(textAreaId);
+    const element = textAreaRef.current;
     if (element !== null) {
       resizeTextArea(element);
     }
-  });
+  }, []);
 
   const updateMainTask = (event) => {
     const element = event.target;
@@ -27,6 +29,7 @@ function MainTask(props) {
     <div>
       <textarea
         id={textAreaId}
+        ref={textAreaRef}
         type="text"
         value={mainTask}
         autoComplete="false"
