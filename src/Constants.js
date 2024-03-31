@@ -12,6 +12,9 @@ export const backgroundUrls = [
 
 export const testBackgroundUrl = null;
 
+export const homepageKey = "t-minus";
+export const backgroundSearchParam = "background";
+
 export const LOCAL_STORAGE_KEYS = {
   MAIN_TASK: "MAIN_TASK",
   ORIGINAL_TIME: "ORIGINAL_TIME",
