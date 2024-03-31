@@ -48,9 +48,11 @@
   color: rgb(224, 224, 224);
   font-weight: bold;
   font-size: 100px;
-  border-radius: 20px;
+  border-radius: 15px;
   cursor: default;
   text-align: center;
+  resize: vertical;
+  overflow: auto;
 }
 
 .minutesInput {
@@ -59,9 +61,8 @@
   font-weight: bold;
   font-size: 100px;
   text-align: right;
-  width: 140px;
   border-style: none;
-  border-radius: 10px;
+  border-radius: 15px;
   cursor: pointer;
   padding: 1px;
   margin: 0px;
