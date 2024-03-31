@@ -1,5 +1,38 @@
+import { useEffect, useRef } from "react";
+
 function Numbers(props) {
   const { time, isRunning, enterTime } = props;
+
+  const containerRef = useRef(null);
+  const inputRef = useRef(null);
+
+  const resizeFont = () => {
+    const height = containerRef.current.style.height;
+    if (height) {
+      const fontSize = parseInt(height) * 0.85;
+      containerRef.current.style.fontSize = `${fontSize}px`;
+      inputRef.current.style.fontSize = `${fontSize}px`;
+    }
+  };
+
+  useEffect(() => {
+    resizeFont();
+
+    if (window.ResizeObserver) {
+      const observer = new ResizeObserver(() => {
+        resizeFont();
+      });
+
+      observer.observe(containerRef.current);
+
+      return () => {
+        observer.disconnect();
+      };
+    } else {
+      console.log("ope");
+      return () => {};
+    }
+  }, []);
 
   const minutes = Math.floor(time / 60);
   const seconds = time % 60;
@@ -11,7 +44,7 @@ function Numbers(props) {
   };
 
   return (
-    <div className="numbersContainer">
+    <div className="numbersContainer" ref={containerRef}>
       <input
         className="minutesInput"
         readOnly={isRunning}
@@ -20,6 +53,7 @@ function Numbers(props) {
         autoComplete="false"
         onChange={updateMinutes}
         style={isRunning ? { cursor: "not-allowed" } : {}}
+        ref={inputRef}
       />
       :{String(seconds).padStart(2, "0")}
     </div>
