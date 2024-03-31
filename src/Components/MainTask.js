@@ -19,6 +19,23 @@ function MainTask(props) {
     }
   }, []);
 
+  useEffect(() => {
+    if (window.ResizeObserver) {
+      const observer = new ResizeObserver(() => {
+        console.log(textAreaRef.current.style.height);
+      });
+
+      observer.observe(textAreaRef.current);
+
+      return () => {
+        observer.disconnect();
+      };
+    } else {
+      console.log("ope");
+      return () => {};
+    }
+  }, []);
+
   const updateMainTask = (event) => {
     const element = event.target;
     enterMainTask(element.value);
