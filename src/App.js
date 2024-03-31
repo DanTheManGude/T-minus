@@ -1,17 +1,20 @@
 import { useState, useEffect } from "react";
 
-import { backgroundUrls, testBackgroundUrl } from "./Constants";
+import {
+  backgroundUrls,
+  testBackgroundUrl,
+  homepageKey,
+  backgroundSearchParam,
+} from "./Constants";
 import TimerContainer from "./Components/TimerContainer";
 
 const chooseRandomBackgroundUrl = () =>
   backgroundUrls[Math.floor(Math.random() * backgroundUrls.length)];
 
 const getPotentialBackgroundUrlPath = () => {
-  const parts = window.location.pathname.split("/");
-  if (parts.length < 3) {
-    return "";
-  }
-  return parts[2];
+  const urlSearchParams = new URLSearchParams(window.location.search);
+
+  return urlSearchParams.get(backgroundSearchParam);
 };
 
 function App() {
@@ -39,7 +42,9 @@ function App() {
       const backgroundUrlPath = btoa(backgroundUrl);
 
       if (getPotentialBackgroundUrlPath() !== backgroundUrlPath) {
-        window.location.assign(`/t-minus/${backgroundUrlPath}`);
+        window.location.assign(
+          `/${homepageKey}?${backgroundSearchParam}=${backgroundUrlPath}`
+        );
       }
     }
   }, [backgroundUrl]);
