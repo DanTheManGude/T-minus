@@ -79,7 +79,8 @@
   font-weight: bold;
   font-size: 80px;
   height: 100px;
-  width: 310px;
+  width: 60vw;
+  min-width: 300px;
   border-style: none;
   border-radius: 10px;
   text-align: center;
