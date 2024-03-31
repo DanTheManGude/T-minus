@@ -10,7 +10,7 @@ function MainTask(props) {
       const observer = new ResizeObserver(() => {
         const textAreaHeight = textAreaRef.current.style.height;
         if (textAreaHeight) {
-          const fontSize = parseInt(textAreaHeight) - 12;
+          const fontSize = parseInt(textAreaHeight) * 0.85;
           textAreaRef.current.style.fontSize = `${fontSize}px`;
         }
       });
