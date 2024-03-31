@@ -22,7 +22,7 @@
 .controls {
   display: flex;
   flex-direction: row;
-  justify-content: space-around;
+  justify-content: space-between;
   gap: 10px;
 }
 
@@ -40,7 +40,7 @@
   transition-duration: 0.3s, 0.3s, 0.3s, 0.3s, 0.3s;
   transition-property: background-color, border-color, color;
   vertical-align: middle;
-  width: 150px;
+  width: 49%;
 }
 
 .numbersContainer {
