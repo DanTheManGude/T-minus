@@ -46,6 +46,7 @@ function Numbers(props) {
   return (
     <div className="numbersContainer" ref={containerRef}>
       <input
+        size={2}
         className="minutesInput"
         readOnly={isRunning}
         type="text"
