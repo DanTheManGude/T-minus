@@ -19,5 +19,5 @@ export const LOCAL_STORAGE_KEYS = {
   RUNNING: "RUNNING",
 };
 
-export const defaultTask = "Main Task";
+export const defaultTask = "Task";
 export const defaultTime = 1200;
