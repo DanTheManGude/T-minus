@@ -26,7 +26,7 @@ function App() {
     if (isTestingBackground) {
       initialBackgroundUrl = testBackgroundUrl;
     } else if (pathBackgroundUrlRaw) {
-      initialBackgroundUrl = decodeURIComponent(pathBackgroundUrlRaw);
+      initialBackgroundUrl = atob(pathBackgroundUrlRaw);
     } else {
       initialBackgroundUrl = chooseRandomBackgroundUrl();
     }
@@ -36,7 +36,7 @@ function App() {
 
   useEffect(() => {
     if (backgroundUrl) {
-      const backgroundUrlPath = encodeURIComponent(backgroundUrl);
+      const backgroundUrlPath = btoa(backgroundUrl);
 
       if (getPotentialBackgroundUrlPath() !== backgroundUrlPath) {
         window.location.assign(`/t-minus/${backgroundUrlPath}`);
