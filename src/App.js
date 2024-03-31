@@ -6,12 +6,20 @@ import TimerContainer from "./Components/TimerContainer";
 const chooseRandomBackgroundUrl = () =>
   backgroundUrls[Math.floor(Math.random() * backgroundUrls.length)];
 
+const getPotentialBackgroundUrlPath = () => {
+  const parts = window.location.pathname.split("/");
+  if (parts.length < 3) {
+    return "";
+  }
+  return parts[2];
+};
+
 function App() {
   const [backgroundUrl, setBackgroundUrl] = useState();
   const isTestingBackground = !!testBackgroundUrl;
 
   useEffect(() => {
-    const pathBackgroundUrlRaw = window.location.pathname.slice(1);
+    const pathBackgroundUrlRaw = getPotentialBackgroundUrlPath();
 
     let initialBackgroundUrl;
 
@@ -30,8 +38,8 @@ function App() {
     if (backgroundUrl) {
       const backgroundUrlPath = encodeURIComponent(backgroundUrl);
 
-      if (window.location.pathname.slice(1) !== backgroundUrlPath) {
-        window.location.assign(backgroundUrlPath);
+      if (getPotentialBackgroundUrlPath() !== backgroundUrlPath) {
+        window.location.assign(`/t-minus/${backgroundUrlPath}`);
       }
     }
   }, [backgroundUrl]);
